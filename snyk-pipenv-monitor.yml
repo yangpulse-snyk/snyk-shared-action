@@ -19,10 +19,14 @@
 name: Snyk Security
 
 on:
-  push:
-    branches: ["master" ]
-  pull_request:
-    branches: ["master"]
+  workflow_call:
+    inputs:
+      SNYK_ORG:
+        required: true
+        type: string
+    secrets:
+      SNYK_TOKEN:
+        required: true
 
 permissions:
   contents: read
@@ -37,7 +41,7 @@ jobs:
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
     # - uses: actions/checkout@v2
 
       # For Snyk Open Source you must first set up the development environment for your application's dependencies
