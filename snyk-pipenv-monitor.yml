@@ -27,6 +27,7 @@ on:
     secrets:
       SNYK_TOKEN:
         required: true
+        type: string
 
 permissions:
   contents: read
@@ -58,21 +59,25 @@ jobs:
         uses: snyk/actions/setup@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_ORG: ${{ secrets.SNYK_ORG }}
           
       - name: Open Source Monitor  
         run: snyk monitor --all-projects || true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_ORG: ${{ secrets.SNYK_ORG }}
           
       - name: Code Test  
         run: snyk code test -d --sarif > snyk-code.sarif || true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_ORG: ${{ secrets.SNYK_ORG }}
           
       - name: IaC Test  
         run: snyk iac test -d --report || true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_ORG: ${{ secrets.SNYK_ORG }}
 
         # Build the docker image for testing
       - name: Build a Docker image
@@ -82,6 +87,7 @@ jobs:
         run: snyk container monitor -d your/image-to-test --file=Dockerfile
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_ORG: ${{ secrets.SNYK_ORG }}
 
         # Push the Snyk Code results into GitHub Code Scanning tab
       - name: Upload result to GitHub Code Scanning
