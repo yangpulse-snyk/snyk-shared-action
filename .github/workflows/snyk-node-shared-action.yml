@@ -23,7 +23,6 @@ on:
     inputs:
       SNYK_ORG:
         required: true
-        type: string
     secrets:
       SNYK_TOKEN:
         required: true
