@@ -65,8 +65,9 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_ORG: ${{ inputs.SNYK_ORG }}
           
-      - name: Code Test  
-        run: snyk code test -d --report --project-name="Code_Analysis" --sarif > snyk-code.sarif || true
+      - name: Code Test
+        run: snyk code test -d --report --project-name="Code_Analysis"
+        #run: snyk code test -d --report --project-name="Code_Analysis" --sarif > snyk-code.sarif || true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_ORG: ${{ inputs.SNYK_ORG }}
